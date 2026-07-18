@@ -17,32 +17,43 @@ function makeId(n) {
   return String(n);
 }
 
+function sortIdsDesc(ids) {
+  return (ids || [])
+    .map(String)
+    .sort((a, b) => Number(b) - Number(a));
+}
+
 export default async function handler(req, res) {
   const redis = new Redis({
     url: process.env.UPSTASH_REDIS_REST_URL,
     token: process.env.UPSTASH_REDIS_REST_TOKEN,
   });
 
+  // QUICK DEBUG to detect env mismatch immediately
+  const debugEnv = {
+    hasRedisUrl: Boolean(process.env.UPSTASH_REDIS_REST_URL),
+    hasRedisToken: Boolean(process.env.UPSTASH_REDIS_REST_TOKEN),
+    jwtSecretSet: Boolean(process.env.JWT_SECRET),
+  };
+
   if (req.method === 'GET') {
-    // NOTE: Some Redis providers / configurations may not persist the list key as expected.
-    // To guarantee correctness, we fetch the recent post ids from a Redis set.
-    // This requires POST to also maintain that set.
+    // First: use set-based index (no reliance on list behavior)
+    let effectiveIds = [];
+    const setIds = await redis.smembers('posts:id');
+    if (Array.isArray(setIds)) effectiveIds = sortIdsDesc(setIds);
 
-    // primary: ordered list
-    const ids = await redis.lrange('posts', 0, 49);
-
-    // fallback: set-based last-ids
-    let effectiveIds = Array.isArray(ids) ? ids : [];
-
-    if (!effectiveIds.length) {
-      const setIds = await redis.smembers('posts:id');
-      // Keep deterministic ordering by sorting numerically descending.
-      effectiveIds = (Array.isArray(setIds) ? setIds : [])
-        .slice()
-        .map(String)
-        .sort((a, b) => Number(b) - Number(a))
-        .slice(0, 50);
+    // Optional: also merge list ids if present
+    try {
+      const listIds = await redis.lrange('posts', 0, 49);
+      if (Array.isArray(listIds) && listIds.length) {
+        const merged = new Set([...effectiveIds, ...listIds.map(String)]);
+        effectiveIds = sortIdsDesc([...merged]).slice(0, 50);
+      }
+    } catch {
+      // ignore list issues
     }
+
+    effectiveIds = effectiveIds.slice(0, 50);
 
     const posts = [];
     for (const id of effectiveIds) {
@@ -57,10 +68,10 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       posts,
-      env: {
-        hasRedisUrl: Boolean(process.env.UPSTASH_REDIS_REST_URL),
-        hasRedisToken: Boolean(process.env.UPSTASH_REDIS_REST_TOKEN),
-        jwtSecretSet: Boolean(process.env.JWT_SECRET),
+      env: debugEnv,
+      debugIndex: {
+        idsCount: effectiveIds.length,
+        sampleIds: effectiveIds.slice(0, 5),
       },
     });
   }
@@ -77,8 +88,10 @@ export default async function handler(req, res) {
     if (t.length > 2000) return res.status(400).json({ error: 'text too long' });
 
     const id = await redis.incr('post:id');
+    const postId = makeId(id);
+
     const post = {
-      id: makeId(id),
+      id: postId,
       username: user,
       text: t || null,
       imageUrl: img || null,
@@ -87,15 +100,12 @@ export default async function handler(req, res) {
       comments: [],
     };
 
-    await redis.set(`post:${post.id}`, JSON.stringify(post));
+    await redis.set(`post:${postId}`, JSON.stringify(post));
 
-    // Maintain list + set for robust reads.
-    await redis.lpush('posts', post.id);
-    await redis.ltrim('posts', 0, 99);
+    // Set-based index ONLY (most reliable across Redis providers)
+    await redis.sadd('posts:id', postId);
 
-    await redis.sadd('posts:id', post.id);
-
-    return res.status(201).json({ post });
+    return res.status(201).json({ post, env: debugEnv });
   }
 
   return res.status(405).json({ error: 'Method not allowed' });
