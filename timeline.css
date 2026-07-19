@@ -67,6 +67,9 @@ textarea{min-height:90px;resize:vertical;padding:10px 12px;border-radius:8px;bor
 .btn{padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.55);background:rgba(0,0,0,.15);color:#fff;cursor:pointer}
 .btn:hover{background:rgba(71,178,228,.15);border-color:#47b2e4}
 
+.react-btn .icon{display:inline-block;width:24px;text-align:center}
+
+
 .comment-box{margin-top:12px;border-top:1px solid rgba(255,255,255,.2);padding-top:12px}
 .comment-list{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
 .comment{font-size:13px;opacity:.95}
