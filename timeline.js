@@ -4,7 +4,7 @@
 // TODO: set this to your Vercel app origin (leave trailing slash off).
 // If you deploy to Vercel, set it to: https://<YOUR_VERCE_L_APP>.vercel.app
 // Use same origin so it works regardless of your Vercel URL
-const API_BASE = 'https://vercel.com/jadexbun/aid-4-prog/2kgzQtC53aTsjrAvargxFTDkizyn'; // no trailing slash
+const API_BASE = ''; // no trailing slash
 
 
 
