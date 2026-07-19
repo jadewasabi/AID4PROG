@@ -1,6 +1,13 @@
 import { Redis } from '@upstash/redis';
 import jwt from 'jsonwebtoken';
 
+function setCors(res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+}
+
+
 function authUser(req) {
   const header = req.headers?.authorization || '';
   const parts = String(header).split(' ');
@@ -24,6 +31,13 @@ function sortIdsDesc(ids) {
 }
 
 export default async function handler(req, res) {
+  setCors(res);
+
+  // Handle CORS preflight
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   const redis = new Redis({
     url: process.env.UPSTASH_REDIS_REST_URL,
     token: process.env.UPSTASH_REDIS_REST_TOKEN,
