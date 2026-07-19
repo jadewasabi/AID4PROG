@@ -4,7 +4,8 @@
 // TODO: set this to your Vercel app origin (leave trailing slash off).
 // If you deploy to Vercel, set it to: https://<YOUR_VERCE_L_APP>.vercel.app
 // Use same origin so it works regardless of your Vercel URL
-const API_BASE = '';
+const API_BASE = 'https://jadexbun/';
+
 
 
 const tokenKey = 'aid4_token';
