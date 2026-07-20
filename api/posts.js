@@ -106,61 +106,7 @@ export default async function handler(req, res) {
     const user = authUser(req);
     if (!user) return res.status(401).json({ error: 'unauthorized' });
 
-    const {
-      postId,
-      text,
-      imageUrl,
-      reaction
-    } = req.body || {};
-
-    // --- REACTION (like / heart) ---
-    if (reaction) {
-      const id = String(postId || '').trim();
-      const r = String(reaction || '').trim();
-      if (!id) return res.status(400).json({ error: 'postId required' });
-      if (r !== 'like' && r !== 'love') return res.status(400).json({ error: 'reaction must be like or love' });
-
-      const raw = await redis.get(`post:${id}`);
-      if (!raw) return res.status(404).json({ error: 'post not found' });
-      const post = JSON.parse(raw);
-
-      const setKey = `post:${id}:react:${r}`;
-      const already = await redis.sismember(setKey, user);
-      if (already) {
-        await redis.srem(setKey, user);
-        if (r === 'like') post.reactions.likes = Math.max(0, (post.reactions.likes || 0) - 1);
-        if (r === 'love') post.reactions.loves = Math.max(0, (post.reactions.loves || 0) - 1);
-      } else {
-        await redis.sadd(setKey, user);
-        if (r === 'like') post.reactions.likes = (post.reactions.likes || 0) + 1;
-        if (r === 'love') post.reactions.loves = (post.reactions.loves || 0) + 1;
-      }
-
-      await redis.set(`post:${id}`, JSON.stringify(post));
-      return res.status(200).json({ ok: true, post });
-    }
-
-    // --- COMMENT ---
-    if (text && postId) {
-      const id = String(postId || '').trim();
-      const t = typeof text === 'string' ? text.trim() : '';
-      if (!id) return res.status(400).json({ error: 'postId required' });
-      if (!t) return res.status(400).json({ error: 'text required' });
-      if (t.length > 300) return res.status(400).json({ error: 'text too long' });
-
-      const raw = await redis.get(`post:${id}`);
-      if (!raw) return res.status(404).json({ error: 'post not found' });
-      const post = JSON.parse(raw);
-
-      post.comments = Array.isArray(post.comments) ? post.comments : [];
-      post.comments.push({ username: user, text: t, createdAt: Math.floor(Date.now() / 1000) });
-      post.comments = post.comments.slice(-50);
-
-      await redis.set(`post:${id}`, JSON.stringify(post));
-      return res.status(200).json({ ok: true, post });
-    }
-
-    // --- CREATE POST ---
+    const { text, imageUrl } = req.body || {};
     const t = typeof text === 'string' ? text.trim() : '';
     const img = typeof imageUrl === 'string' ? imageUrl.trim() : '';
 
