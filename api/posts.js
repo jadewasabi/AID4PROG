@@ -50,11 +50,9 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     let effectiveIds = [];
 
-    // Prefer the canonical index
     const setIds = await redis.smembers('posts:id');
     if (Array.isArray(setIds)) effectiveIds = sortIdsDesc(setIds);
 
-    // Merge legacy list index if it exists
     try {
       const listIds = await redis.lrange('posts', 0, 49);
       if (Array.isArray(listIds) && listIds.length) {
@@ -108,9 +106,14 @@ export default async function handler(req, res) {
     const user = authUser(req);
     if (!user) return res.status(401).json({ error: 'unauthorized' });
 
-    const { postId, text, imageUrl, reaction } = req.body || {};
+    const {
+      postId,
+      text,
+      imageUrl,
+      reaction
+    } = req.body || {};
 
-    // --- REACTION (like/heart) ---
+    // --- REACTION (like / heart) ---
     if (reaction) {
       const id = String(postId || '').trim();
       const r = String(reaction || '').trim();
