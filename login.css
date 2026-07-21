@@ -124,6 +124,7 @@ button:hover {
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 1000;
 }
 .navbar {
   display: flex;
@@ -253,6 +254,7 @@ button:hover {
     background: #175d69;
     flex-direction: column;
     transition: 0.3s ease;
+    z-index: 999;
   }
   .navbar #menu-toggle:checked ~ .links {
     left: 0;
