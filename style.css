@@ -171,6 +171,329 @@ body {
 
 }
 
+/* ===== Services Page Styles ===== */
+.services-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 100px 20px 60px;
+}
+
+.services-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 40px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.service-card {
+  flex: 1 1 280px;
+  max-width: 350px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 40px 30px;
+  text-align: center;
+  color: #fff;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.service-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(71, 178, 228, 0.25);
+  border-color: #47b2e4;
+}
+
+.service-icon-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 3px solid rgba(71, 178, 228, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+  background: rgba(71, 178, 228, 0.1);
+  transition: background 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+}
+
+.service-card:hover .service-icon-circle {
+  background: rgba(71, 178, 228, 0.25);
+  border-color: #47b2e4;
+  transform: scale(1.05);
+}
+
+.service-icon-circle i {
+  font-size: 4rem;
+  color: #47b2e4;
+  transition: transform 0.4s ease;
+}
+
+.service-card:hover .service-icon-circle i {
+  transform: scale(1.15);
+}
+
+.service-card h3 {
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.service-card p {
+  font-size: 1rem;
+  color: #c9c7c7;
+  line-height: 1.7;
+}
+
+/* ===== Contact Page Styles ===== */
+.contact-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 100px 20px 60px;
+}
+
+.contact-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 40px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.contact-card {
+  flex: 1 1 280px;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 50px 40px;
+  text-align: center;
+  color: #fff;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.contact-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(71, 178, 228, 0.25);
+  border-color: #47b2e4;
+}
+
+.contact-icon-circle {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 3px solid rgba(71, 178, 228, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+  flex-shrink: 0;
+  background: rgba(71, 178, 228, 0.1);
+  transition: background 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+}
+
+.contact-card:hover .contact-icon-circle {
+  background: rgba(71, 178, 228, 0.25);
+  border-color: #47b2e4;
+  transform: scale(1.05);
+}
+
+.contact-icon-circle i {
+  font-size: 5rem;
+  color: #47b2e4;
+  transition: transform 0.4s ease;
+}
+
+.contact-card:hover .contact-icon-circle i {
+  transform: scale(1.15);
+}
+
+.contact-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.contact-card p {
+  font-size: 1.1rem;
+  color: #c9c7c7;
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+
+.contact-card .contact-email {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #47b2e4;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.contact-card .contact-email:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.contact-form {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.contact-form .form-group {
+  position: relative;
+  border-bottom: 2px solid #ccc;
+  margin: 20px 0;
+}
+
+.contact-form .form-group label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.15s ease;
+}
+
+.contact-form .form-group input,
+.contact-form .form-group textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #fff;
+  padding: 10px 0;
+  font-family: "Open Sans", sans-serif;
+}
+
+.contact-form .form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.contact-form .form-group input:focus ~ label,
+.contact-form .form-group input:valid ~ label,
+.contact-form .form-group textarea:focus ~ label,
+.contact-form .form-group textarea:valid ~ label {
+  font-size: 0.8rem;
+  top: 10px;
+  transform: translateY(-120%);
+}
+
+.contact-form .submit-btn {
+  background: #47b2e4;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 14px 30px;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  width: 100%;
+  transition: 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.contact-form .submit-btn:hover {
+  background: transparent;
+  border-color: #47b2e4;
+  color: #47b2e4;
+}
+
+/* Responsive for services & contact */
+@media screen and (max-width: 900px) {
+  .services-container,
+  .contact-container {
+    gap: 30px;
+  }
+  .service-card {
+    flex: 1 1 240px;
+    max-width: 320px;
+    padding: 30px 20px;
+  }
+  .service-icon-circle {
+    width: 120px;
+    height: 120px;
+  }
+  .service-icon-circle i {
+    font-size: 3.2rem;
+  }
+  .contact-card {
+    max-width: 450px;
+    padding: 40px 30px;
+  }
+  .contact-icon-circle {
+    width: 140px;
+    height: 140px;
+  }
+  .contact-icon-circle i {
+    font-size: 4.2rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .services-section,
+  .contact-section {
+    padding: 90px 15px 40px;
+  }
+  .services-container,
+  .contact-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+  }
+  .service-card {
+    max-width: 100%;
+    width: 100%;
+  }
+  .service-icon-circle {
+    width: 110px;
+    height: 110px;
+  }
+  .service-icon-circle i {
+    font-size: 2.8rem;
+  }
+  .contact-card {
+    max-width: 100%;
+    width: 100%;
+    padding: 30px 20px;
+  }
+  .contact-icon-circle {
+    width: 130px;
+    height: 130px;
+  }
+  .contact-icon-circle i {
+    font-size: 3.8rem;
+  }
+}
+
 /* ===== About Page Styles ===== */
 .about-section {
   display: flex;
