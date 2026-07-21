@@ -84,8 +84,6 @@ function renderPosts(filtered) {
     return;
   }
 
-  const currentUser = (parseJwt(getToken()).sub) || '';
-
   for (const p of filtered) {
     const el = document.createElement('div');
     el.className = 'post';
@@ -100,14 +98,19 @@ function renderPosts(filtered) {
       )
       .join('');
 
+    // Check if current user is the post owner
+    const currentUser = parseJwt(getToken()).sub;
+    const isOwner = currentUser === p.username;
+
     el.innerHTML = `
       <div class="post-head">
         <div>
           <div class="post-user">${escapeHtml(p.username)}</div>
           <div class="post-meta">${escapeHtml(fmtTime(p.createdAt))}</div>
+        <div class="post-meta" style="display:flex;gap:8px;align-items:center;">
+          <span>#${escapeHtml(String(p.id))}</span>
+          ${isOwner ? `<button class="btn delete-btn" data-delete="${p.id}" title="Delete your post">🗑️ Delete</button>` : ''}
         </div>
-        <div class="post-meta">#${escapeHtml(String(p.id))}</div>
-      </div>
 
       ${p.imageUrl ? `<div class="post-img"><img src="${escapeHtml(
         p.imageUrl
@@ -122,17 +125,6 @@ function renderPosts(filtered) {
           </svg>
           Upvote
         </button>
-        ${
-          p.username === currentUser
-            ? `<button class="btn delete-btn" data-action="delete" data-postid="${p.id}" title="Delete this post">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="3 6 5 6 21 6"></polyline>
-                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                </svg>
-                Delete
-              </button>`
-            : ''
-        }
       </div>
 
       <div class="comment-box">
@@ -251,14 +243,12 @@ async function handleReactClick(e) {
   await loadPosts();
 }
 
-
 async function handleDeleteClick(e) {
-  const btn = e.target.closest('[data-action="delete"]');
+  const btn = e.target.closest('[data-delete]');
   if (!btn) return;
 
+  const postId = btn.getAttribute('data-delete');
   if (!confirm('Are you sure you want to delete this post?')) return;
-
-  const postId = btn.getAttribute('data-postid');
 
   await api(`/api/posts/${encodeURIComponent(postId)}/delete`, {
     method: 'DELETE',
@@ -272,11 +262,6 @@ function handleLogout() {
   window.location.href = 'join.html';
 }
 
-async function handlePostsClick(e) {
-  handleReactClick(e);
-  handleDeleteClick(e);
-}
-
 window.addEventListener('DOMContentLoaded', async () => {
   requireAuth();
 
@@ -284,7 +269,8 @@ window.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('logoutBtn').addEventListener('click', handleLogout);
   document.getElementById('search').addEventListener('input', applySearchAndRender);
   document.getElementById('posts').addEventListener('submit', handleCommentSubmit);
-  document.getElementById('posts').addEventListener('click', handlePostsClick);
+  document.getElementById('posts').addEventListener('click', handleReactClick);
+  document.getElementById('posts').addEventListener('click', handleDeleteClick);
 
   await loadPosts();
 });
