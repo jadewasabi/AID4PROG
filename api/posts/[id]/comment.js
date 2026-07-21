@@ -40,7 +40,7 @@ export default async function handler(req, res) {
 
   const raw = await redis.get(`post:${id}`);
   if (!raw) return res.status(404).json({ error: 'post not found' });
-  const post = JSON.parse(raw);
+  const post = typeof raw === 'string' ? JSON.parse(raw) : raw;
 
   post.comments = Array.isArray(post.comments) ? post.comments : [];
   post.comments.push({ username: user, text: t, createdAt: Math.floor(Date.now() / 1000) });
