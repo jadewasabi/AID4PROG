@@ -3,9 +3,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Open Sans", sans-serif 
+  font-family: "Open Sans", sans-serif;
 }
-
 
 body {
   display: flex;
@@ -14,26 +13,16 @@ body {
   min-height: 100vh;
   width: 100%;
   padding: 0 10px;
-  will-change: opacity, transform;
-  animation: pageEnter 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: pageReveal 1s cubic-bezier(0.77, 0, 0.18, 1) forwards;
 }
 
-/* Creative page entrance - smooth, GPU-accelerated */
-@keyframes pageEnter {
+/* Horizontal curtain reveal - no opacity, no layout shift */
+@keyframes pageReveal {
   0% {
-    opacity: 0;
-    transform: scale(0.96) translateY(20px);
-    filter: blur(6px);
-  }
-  60% {
-    opacity: 1;
-    transform: scale(1.005) translateY(-2px);
-    filter: blur(0px);
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
   }
   100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-    filter: blur(0px);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
 }
 body::before {
@@ -200,56 +189,6 @@ button:hover {
   background-color: #47b2e4;
   color: #fff;
 }
-.hero-section {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 95vh;
-  padding: 0 15px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.hero-section .hero {
-  max-width: 50%;
-  color: #fff;
-}
-.hero h2 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-}
-.hero p {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  color: #c9c7c7;
-}
-.hero-section .img img {
-  width: 280px;
-}
-.hero-section .buttons {
-  margin-top: 40px;
-}
-.hero-section .buttons a {
-  text-decoration: none;
-  color: #fff;
-  padding: 12px 24px;
-  border-radius: 0.375rem;
-  font-weight: 600;
-  transition: 0.2s ease;
-  display: inline-block;
-}
-.hero-section .buttons a:not(:last-child) {
-  margin-right: 15px;
-}
-.buttons .join {
-  background-color: #47b2e4;
-}
-.hero-section .buttons .learn {
-  border: 1px solid #fff;
-  border-radius: 0.375rem;
-}
-.hero-section .buttons a:hover {
-  background-color: #47b2e4;
-}
 /* Hamburger menu styles */
 #menu-toggle {
   display: none;
@@ -284,13 +223,6 @@ button:hover {
     display: block;
   }
   .header .buttons {
-    display: none;
-  }
-  .hero-section .hero {
-    max-width: 100%;
-    text-align: center;
-  }
-  .hero-section img {
     display: none;
   }
 }
