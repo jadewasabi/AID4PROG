@@ -1,7 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css");
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:"Open Sans",sans-serif}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Open Sans",sans-serif
+}
 body{
   min-height:100vh;width:100%;
   background:linear-gradient(135deg, #0f0c29, #302b63, #24243e);
@@ -9,10 +14,30 @@ body{
   overflow:hidden;
 }
 
-.header{position:fixed;top:0;left:0;width:100%;z-index:1000}
-.navbar{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:20px 15px}
-.navbar .logo a{font-size:1.8rem;text-decoration:none;color:#fff}
-.navbar .links{display:flex;align-items:center;list-style:none;gap:35px}
+.header {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:1000
+}
+.navbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  max-width:1200px;
+  margin:0 auto;
+  padding:20px 15px
+}
+.navbar .logo a{
+  font-size:1.8rem;
+  text-decoration:none;
+  color:#fff
+}
+.navbar .links{
+  display:flex;
+  align-items:center;
+  list-style:none;gap:35px}
 .navbar .links a{font-weight:500;text-decoration:none;color:#fff;padding:10px 0;transition:0.2s ease}
 .navbar .links a:hover{color:#47b2e4}
 #menu-toggle{display:none}
