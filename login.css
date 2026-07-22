@@ -65,12 +65,44 @@ h2 {
   outline: none;
   font-size: 16px;
   color: #fff;
+  padding-right: 40px;
 }
 .input-field input:focus~label,
 .input-field input:valid~label {
   font-size: 0.8rem;
   top: 10px;
   transform: translateY(-120%);
+}
+
+/* Password toggle eye button */
+.password-toggle {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none !important;
+  border: none !important;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  padding: 0 !important;
+  margin: 0;
+  width: 36px;
+  height: 36px;
+  line-height: 0;
+  transition: 0.2s ease;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 !important;
+}
+.password-toggle:hover {
+  color: #fff;
+  background: none !important;
+  border-color: transparent !important;
+}
+.password-toggle svg {
+  display: block;
 }
 .forget {
   display: flex;
