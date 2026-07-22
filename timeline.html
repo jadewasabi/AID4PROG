@@ -19,6 +19,7 @@
         </label>
         <ul class="links">
           <li><a href="index.html">Home</a></li>
+          <li><a href="messages.html">Messages</a></li>
         </ul>
       </nav>
     </header>
@@ -34,28 +35,30 @@
           <i class="fas fa-laptop-code"></i>
           <span class="strand-name">Computer Programming</span>
         </div>
-      </div>
 
       <div class="topbar">
         <div class="search">
           <input id="search" type="text" placeholder="Search by username or post..." />
         </div>
-        <button class="logout" id="logoutBtn" type="button">Logout</button>
-      </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <button class="logout messages-btn" id="messagesBtn" type="button" title="Open Messages">
+            <i class="fas fa-comment-dots"></i> Messages
+          </button>
+          <button class="logout" id="logoutBtn" type="button">Logout</button>
+        </div>
 
       <div class="grid">
         <section class="composer card">
           <h2>Create a post</h2>
           <form id="postForm" enctype="multipart/form-data">
             <div class="field">
-              <label for="postText">Type your texts here</label>
+              <label for="postText">Text (optional)</label>
               <textarea id="postText" placeholder="What's on your mind?"></textarea>
             </div>
             <div class="field">
-              <label for="postImage">Select an image</label>
+              <label for="postImage">Image (optional)</label>
               <input id="postImage" type="file" accept="image/*" />
-              <div class="small"></div>
-            </div>
+              <div class="small">Uploads are stored as data URLs in Upstash (Redis). Works for multi-user viewing.</div>
             <button class="primary" type="submit">Post</button>
           </form>
           <div class="small" id="postError" style="margin-top:10px;display:none;"></div>
@@ -71,4 +74,3 @@
     <script src="timeline.js"></script>
   </body>
 </html>
-
