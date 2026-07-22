@@ -9,7 +9,6 @@ body{
   overflow:hidden;
 }
 
-/* --- Navbar (matches other pages) --- */
 .header{position:fixed;top:0;left:0;width:100%;z-index:1000}
 .navbar{display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;padding:20px 15px}
 .navbar .logo a{font-size:1.8rem;text-decoration:none;color:#fff}
@@ -25,7 +24,6 @@ body{
   .navbar #hamburger-btn{display:block}
 }
 
-/* --- Main Layout --- */
 .messages-app{
   display:flex;
   height:calc(100vh - 80px);
@@ -37,7 +35,6 @@ body{
   gap:0;
 }
 
-/* --- Left Sidebar: Conversation List --- */
 .conv-sidebar{
   width:340px;
   min-width:280px;
@@ -82,7 +79,6 @@ body{
   color:#fff;
 }
 
-/* Search bar inside sidebar */
 .conv-search{
   padding:10px 18px;
   position:relative;
@@ -107,7 +103,6 @@ body{
   font-size:0.85rem;
 }
 
-/* Conversation list */
 .conv-list{
   flex:1;
   overflow-y:auto;
@@ -177,7 +172,6 @@ body{
   font-size:0.9rem;
 }
 
-/* --- Right Panel: Chat View --- */
 .chat-panel{
   flex:1;
   background:rgba(255,255,255,0.04);
@@ -191,7 +185,6 @@ body{
   overflow:hidden;
 }
 
-/* Chat header (when a conversation is selected) */
 .chat-header{
   padding:14px 20px;
   border-bottom:1px solid rgba(255,255,255,0.08);
@@ -228,7 +221,6 @@ body{
   color:rgba(255,255,255,0.45);
 }
 
-/* Active chat wrapper — fills the chat panel using flex */
 #activeChat{
   flex:1;
   display:flex;
@@ -236,7 +228,15 @@ body{
   min-height:0;
 }
 
-/* Messages area */
+.chat-conversation-box{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+  margin:0;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
 .messages-area{
   flex:1;
   overflow-y:auto;
@@ -248,7 +248,6 @@ body{
 .messages-area::-webkit-scrollbar{width:4px}
 .messages-area::-webkit-scrollbar-thumb{background:rgba(71,178,228,0.3);border-radius:4px}
 
-/* --- Chat Bubbles --- */
 .message-row{
   display:flex;
   max-width:75%;
@@ -287,7 +286,6 @@ body{
   text-align:right;
 }
 
-/* Unsend indicator */
 .message-unsent{
   font-style:italic;
   color:rgba(255,255,255,0.35);
@@ -297,7 +295,6 @@ body{
   color:rgba(255,255,255,0.4);
 }
 
-/* Unsend button (on hover) */
 .message-row.sent .message-bubble{
   position:relative;
 }
@@ -326,7 +323,6 @@ body{
   background:#dc2626;
 }
 
-/* Date separator */
 .date-separator{
   text-align:center;
   font-size:0.75rem;
@@ -334,7 +330,6 @@ body{
   padding:10px 0;
 }
 
-/* Empty chat placeholder */
 .chat-placeholder{
   flex:1;
   display:flex;
@@ -354,7 +349,6 @@ body{
   font-size:1rem;
 }
 
-/* --- Message Input --- */
 .chat-input-area{
   padding:12px 16px;
   border-top:1px solid rgba(255,255,255,0.08);
@@ -398,7 +392,6 @@ body{
   box-shadow:0 4px 15px rgba(71,178,228,0.3);
 }
 
-/* --- New Chat Modal --- */
 .modal-overlay{
   display:none;
   position:fixed;
@@ -478,7 +471,6 @@ body{
   box-shadow:0 4px 12px rgba(71,178,228,0.3);
 }
 
-/* --- Responsive --- */
 @media screen and (max-width: 860px){
   .messages-app{flex-direction:column;height:calc(100vh - 80px);padding:8px}
   .conv-sidebar{
