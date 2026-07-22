@@ -10,7 +10,7 @@
 <body>
   <header class="header">
     <nav class="navbar">
-      <h2 class="logo"><a href="#">AID4PROGRAMMERS</a></h2>
+      <h2 class="logo"><a href="#">BroCode</a></h2>
       <input type="checkbox" id="menu-toggle" />
       <label for="menu-toggle" id="hamburger-btn">
         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
@@ -20,10 +20,7 @@
       <ul class="links">
         <li><a href="index.html">Home</a></li>
         <li><a href="messages.html">Messages</a></li>
-        <li><a href="timeline.html">Timeline</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
+      
       </ul>
     </nav>
   </header>
@@ -55,13 +52,13 @@
         <h2>Create a post</h2>
         <form id="postForm" enctype="multipart/form-data">
           <div class="field">
-            <label for="postText">Text (optional)</label>
+            <label for="postText">Type text here</label>
             <textarea id="postText" placeholder="What's on your mind?"></textarea>
           </div>
           <div class="field">
-            <label for="postImage">Image (optional)</label>
+            <label for="postImage">Select an image</label>
             <input id="postImage" type="file" accept="image/*" />
-            <div class="small">Uploads are stored as data URLs in Upstash (Redis). Works for multi-user viewing.</div>
+            <div class="small"></div>
           <button class="primary" type="submit">Post</button>
         </form>
         <div class="small" id="postError" style="margin-top:10px;display:none;"></div>
